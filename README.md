@@ -3,7 +3,8 @@
 A simple and efficient **Human Resource Management (HRM)** mobile application built using **Flutter** for the frontend and **Hive** for offline local data storage.  
 The system allows an **Admin** to manage employees easily from a mobile device.
 
----
+---<img width="575" height="912" alt="image" src="https://github.com/user-attachments/assets/e73b96de-867b-435d-821e-1a068b8ac554" />
+
 
 ## 📌 Features
 
