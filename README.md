@@ -50,10 +50,7 @@ There is **no login for employees** in this system.
 
 ---
 
-## 📂 Folder Structure
-
-`lib/` → `main.dart`, `models/employee_model.dart`, `screens/login_screen.dart`, `screens/admin_dashboard.dart`, `screens/add_employee_screen.dart`, `screens/employee_list_screen.dart`, `screens/edit_employee_screen.dart`, `widgets/primary_button.dart`
-
+<pre> ## 📂 Folder Structure ``` lib/ ├── main.dart ├── models/ │ └── employee_model.dart ├── screens/ │ ├── login_screen.dart │ ├── admin_dashboard.dart │ ├── add_employee_screen.dart │ ├── employee_list_screen.dart │ └── edit_employee_screen.dart ├── widgets/ │ └── primary_button.dart ``` </pre>
 
 
 
