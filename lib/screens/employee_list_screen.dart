@@ -11,6 +11,7 @@ class EmployeeListScreen extends StatelessWidget {
     final box = Hive.box<Employee>('employeesBox');
 
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
       body: ValueListenableBuilder(
         valueListenable: box.listenable(),
         builder: (context, Box<Employee> employees, _) {
@@ -23,73 +24,63 @@ class EmployeeListScreen extends StatelessWidget {
             );
           }
 
-          return Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 1200),
-              child: Card(
-                elevation: 4,
-                margin: const EdgeInsets.all(24),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                child: Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: DataTable(
-                      headingTextStyle: TextStyle(
-                        color: Colors.blue.shade900,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      border: TableBorder.all(color: Colors.grey.shade300),
-                      columns: const [
-                        DataColumn(label: Text("Name")),
-                        DataColumn(label: Text("Email")),
-                        DataColumn(label: Text("Phone")),
-                        DataColumn(label: Text("Designation")),
-                        DataColumn(label: Text("Salary")),
-                        DataColumn(label: Text("Actions")),
-                      ],
-                      rows: List.generate(employees.length, (index) {
-                        final emp = employees.getAt(index)!;
+          return ListView.separated(
+            padding: const EdgeInsets.all(12),
+            itemCount: employees.length,
+            separatorBuilder: (_, __) => const SizedBox(height: 8),
+            itemBuilder: (context, index) {
+              final emp = employees.getAt(index)!;
 
-                        return DataRow(cells: [
-                          DataCell(Text(emp.name)),
-                          DataCell(Text(emp.email)),
-                          DataCell(Text(emp.phone)),
-                          DataCell(Text(emp.designation)),
-                          DataCell(Text(emp.salary.toString())),
-                          DataCell(
-                            Row(
-                              children: [
-                                IconButton(
-                                  icon: const Icon(Icons.edit, color: Colors.blue),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => EditEmployeeScreen(index: index, employee: emp),
-                                      ),
-                                    );
-                                  },
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.delete, color: Colors.red),
-                                  onPressed: () {
-                                    employees.deleteAt(index);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(content: Text("Employee Deleted")),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ]);
-                      }),
+              return Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                child: ListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  leading: CircleAvatar(
+                    radius: 26,
+                    backgroundColor: Colors.blue.shade900,
+                    child: Text(
+                      emp.name.isNotEmpty ? emp.name[0].toUpperCase() : "?",
+                      style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
+                  title: Text(
+                    emp.name,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(emp.designation, style: TextStyle(color: Colors.blue.shade700, fontWeight: FontWeight.w500)),
+                      const SizedBox(height: 4),
+                      Text(emp.phone, style: TextStyle(color: Colors.grey.shade600, fontSize: 13)),
+                    ],
+                  ),
+
+                  trailing: PopupMenuButton(
+                    onSelected: (value) {
+                      if (value == 'edit') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => EditEmployeeScreen(index: index, employee: emp),
+                          ),
+                        );
+                      } else if (value == 'delete') {
+                        employees.deleteAt(index);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Employee Deleted")),
+                        );
+                      }
+                    },
+                    itemBuilder: (context) => [
+                      const PopupMenuItem(value: 'edit', child: Text("Edit")),
+                      const PopupMenuItem(value: 'delete', child: Text("Delete")),
+                    ],
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           );
         },
       ),
