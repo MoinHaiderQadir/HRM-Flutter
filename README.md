@@ -52,8 +52,6 @@ There is **no login for employees** in this system.
 
 ## 📂 Folder Structure
 
-
-
 lib/
 ├── main.dart
 ├── models/
@@ -66,7 +64,6 @@ lib/
 │ └── edit_employee_screen.dart
 ├── widgets/
 │ └── primary_button.dart
-
 
 
 
