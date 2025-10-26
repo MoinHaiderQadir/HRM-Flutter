@@ -56,8 +56,14 @@ There is **no login for employees** in this system.
 
 - `main.dart`
 
+### 📁 database
+- `hive_boxes.dart`
+
 ### 📁 models
 - `employee_model.dart`
+
+### 📁 responsive
+- `responsive_layout.dart`
 
 ### 📁 screens
 - `login_screen.dart`
