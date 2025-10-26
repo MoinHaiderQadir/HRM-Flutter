@@ -51,8 +51,6 @@ There is **no login for employees** in this system.
 ---
 
 ## 📂 Folder Structure
-
-
 lib/
 ├── main.dart
 ├── models/
